@@ -1,13 +1,18 @@
 import express from "express";
-import adminRoutes from "./routes/login";
+import authRoutes from "./routes/auth";
+import * as bodyParser from "body-parser";
+import mongoose from "mongoose";
 
 const app: express.Application = express();
 
-// const port: number = 3000;
+app.use(bodyParser.json());
+app.use(authRoutes);
 
-app.use(adminRoutes);
-
-app.listen(3000, () => {
-  console.log(`TypeScript with Express 
-         http://localhost:3000/`);
-});
+mongoose
+  .connect(
+    "mongodb+srv://yogirajsinhparmar:bmz5nSsx62rXyx6J@cluster0.6jy6ins.mongodb.net/user"
+  )
+  .then((result) => {
+    app.listen(5040);
+  })
+  .catch((err) => console.log(err));

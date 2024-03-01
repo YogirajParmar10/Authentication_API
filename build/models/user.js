@@ -22,20 +22,21 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const auth_1 = __importDefault(require("./routes/auth"));
-const bodyParser = __importStar(require("body-parser"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const app = (0, express_1.default)();
-app.use(bodyParser.json());
-app.use(auth_1.default);
-mongoose_1.default
-    .connect("mongodb+srv://yogirajsinhparmar:bmz5nSsx62rXyx6J@cluster0.6jy6ins.mongodb.net/user")
-    .then((result) => {
-    app.listen(5040);
-})
-    .catch((err) => console.log(err));
+exports.User = void 0;
+const mongoose_1 = __importStar(require("mongoose"));
+const userSchema = new mongoose_1.Schema({
+    email: {
+        type: String,
+        required: true,
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+});
+exports.User = mongoose_1.default.model("User", userSchema);
