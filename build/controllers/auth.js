@@ -31,16 +31,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Signin = exports.Signup = void 0;
 const bcrypt = __importStar(require("bcrypt"));
-const user_1 = require("../models/user");
+const user_1 = __importDefault(require("../models/user"));
 const Signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;
     const name = req.body.name;
     const password = req.body.password;
     const hashedPass = yield bcrypt.hash(password, 12);
-    const user = new user_1.User({
+    console.log(typeof hashedPass);
+    const user = new user_1.default({
         email: email,
         name: name,
         password: hashedPass,
@@ -54,17 +58,14 @@ exports.Signup = Signup;
 const Signin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;
     const password = req.body.password;
-    const user = yield user_1.User.findOne({ email: email });
+    const user = yield user_1.default.findOne({ where: { email: email } });
     if (!user) {
         return res.status(404).json({ message: "User not found!" });
-    }
-    if (user.password === "unknown") {
-        throw new Error("User not defined!");
     }
     const isEqual = yield bcrypt.compare(password, user.password);
     if (!isEqual) {
         return res.status(401).json({ message: "Invalid password" });
     }
-    res.status(200).json({ message: "Login successful" });
+    res.status(200).json({ message: "Login successful", user: user });
 });
 exports.Signin = Signin;
