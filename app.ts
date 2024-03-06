@@ -17,12 +17,3 @@ sequelize
   .catch((err) => {
     console.log(err);
   });
-
-// mongoose
-//   .connect(
-//     "mongodb+srv://yogirajsinhparmar:bmz5nSsx62rXyx6J@cluster0.6jy6ins.mongodb.net/user"
-//   )
-//   .then((result) => {
-//       app.listen(5040);
-//   })
-//   .catch((err) => console.log(err));
