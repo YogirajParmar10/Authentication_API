@@ -1,7 +1,6 @@
 import express from "express";
 import authRoutes from "./routes/auth";
 import * as bodyParser from "body-parser";
-// import mongoose from "mongoose";
 import sequelize from "./util/database";
 
 const app: express.Application = express();
