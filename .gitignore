@@ -130,5 +130,5 @@ dist
 .pnp.*
 
 /build
-/mongoDbApproch
+/src/mongoDbApproch
 /package-lock.json
